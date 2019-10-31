@@ -2,14 +2,14 @@
 require 'classControllers/init.php';
 // check if session is set
 if(!isset($_SESSION["role"])) {
-	header('Location:login.php'); 
+	header('Location:login.php');
 }
 
-	
+
 
     $lockForm = new LockRegForm();
 	$status = $lockForm->checkStatus();
-	
+
 	$noOfInterns = $lockForm->getNoOfInterns();
 	$noOfMentors = $lockForm->getNoOfMentors();
 	$noOfAdmins = $lockForm->getNoOfAdmins();
@@ -27,7 +27,7 @@ if(!isset($_SESSION["role"])) {
         } else {
             $sval = 0;
 		}
-        
+
         $lockForm->setStatus($sval);
     }
 
@@ -63,7 +63,7 @@ if(!isset($_SESSION["role"])) {
 			text-align: center;
 			font-size: 20px;
 			box-shadow: 1px 0 4px rgba(0,0,0,0.3);
-			
+
 		}
 
 		.card p{
@@ -83,7 +83,7 @@ if(!isset($_SESSION["role"])) {
                           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                             <i class="fa fa-align-right"></i>
                           </button>
-                          
+
                         </div>
                         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav">
@@ -93,9 +93,9 @@ if(!isset($_SESSION["role"])) {
                                 <li><a href="#"><i class="fas fa-user-circle fw"></i> My account</a></li>
                                 <li><a href="#"><i class="fas fa-envelope fw"></i> My inbox</a></li>
                                 <li><a href="#"><i class="fas fa-question-circle fw"></i> Help</a></li>
-                                
+
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="fa fa-sign-out"></i> Log out</a></li>
+                                <li><a href="./logout.php"><i class="fa fa-sign-out"></i> Log out</a></li>
                               </ul>
                             </li>
                             <li><a href="#"><i class="fa fa-comments"></i><span>10</span></a></li>
@@ -113,28 +113,28 @@ if(!isset($_SESSION["role"])) {
                               <h2>Welcome, <?php echo $_SESSION["fullname"]; ?> !</h2>
                               <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p> -->
                             </div>
-                            
+
                           </div>
-                          
+
                         </div>
                       </div>
                     </div>
             </section>
 		<!-- <section id="overview-section">
-		
+
 			<div class="row" id="welcome">
-				
+
 				<div class="col-md-3">
 					<form method="post">
 															<input type="hidden" name="status" value="close" />
 									<button style="background: #b31329;" type="submit" name="lockopenform" id="export">Registration is Open, Lock Now</button>
-														
+
 					</form>
 				</div>
             </div>
         </section>
        -->
-        
+
         <section id="overview-section">
 			<!-- <h1>Dashboard</h1> -->
 			<div class="row" id="welcome">
@@ -156,40 +156,11 @@ if(!isset($_SESSION["role"])) {
 								<?php
 							}
 						?>
-						
+
 					</form>
 				</div>
       </div>
             </section>
-			<!-- <section id="intern-section">
-				Populated by `js/dashboard.js` 
-			 -->
-
-			<!-- <div class="container">
-				<div class="row">
-					<a href="registered_interns.php">
-						<div class="col-md-2 card">
-							<p>3</p>
-							Registered Interns
-						</div>
-					</a>
-
-					<a href="registered_mentors.php">
-						<div class="col-md-2 card">
-							<p>1</p>
-							Registered Mentors
-						</div>
-					</a>
-					
-					<a href="admins.php">
-						<div class="col-md-2 card">
-							<p>9</p>
-							Registered Admins
-						</div>
-					</a>
-				</div>
-            </div> -->
-            
             <section class='statis text-center'>
                     <div class="container-fluid">
                       <div class="row">
@@ -212,7 +183,7 @@ if(!isset($_SESSION["role"])) {
                           </div>
                           </a>
                         </div>
-                        
+
                         <div class="col-md-3">
                         <a href="admins.php">
                           <div class="box success">
@@ -236,29 +207,8 @@ if(!isset($_SESSION["role"])) {
                     </div>
                   </section>
 
-			<!-- <button id="export">Export to Spreadsheet</button> -->
-		
+
 		</section>
-		<!-- <section id="details-section">
-			<div id="details-back">
-                <div>
-                    <a href="overview.html" id="newitem-go-back" title="Go back">
-                        <div></div>
-                    </a>
-                </div>
-            </div>
-			<h2>Intern application details</h2>
-			<em id="no-intern">No intern selected</em>
-			<br />
-			<p>Name: <span id="details-name"></span></p>
-			<p>Email: <span id="details-email"></span></p>
-			<p>Age: <span id="details-age"></span></p>
-			<p>Phone Number: <span id="details-number"></span></p>
-			<p>Track of interest: <span id="details-track"></span></p>
-			<p>CV link: <span id="details-CV-link"></span></p>
-			<p>State of residence: <span id="details-state-of-residence"></span></p>
-			<div href="" id="details-return">Back to Overview</div>
-		</section> -->
 	</main>
 
 	<input type="checkbox" id="mobile-bars-check" />
@@ -268,14 +218,14 @@ if(!isset($_SESSION["role"])) {
         <div class="stix" id="stik3"></div>
     </label>
 	<?php include('fragments/sidebar.php'); ?>
-					
+
 		<!-- <select>
 			<option selected="selected" disabled="disabled">Overview</option>
 			<option value="0">Mentors</option>
 			<option value="1">Users</option>
 		</select>
 		<a href="#">Advanced</a> -->
-		
+
 
 </body>
 </html>

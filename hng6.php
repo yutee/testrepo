@@ -1,3 +1,8 @@
+<?php
+require 'classControllers/init.php';
+$countdown = new CountdownTimer();
+$countDownValues = $countdown->getDate();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -11,101 +16,101 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link rel="stylesheet" href="css/hngsix.css">
+    <link rel="stylesheet" href="css/countdown.css">
     <link rel="stylesheet" type="text/css" href="css/header-footer.css">
     <link rel="icon" type="img/png" href="images/hng-favicon.png">
-    <style>
-        .body-container {
-                margin: 0;
-                background-color: white;
-            }
-    </style>
-</head>
 
+</head>
 <body>
-<div class="body-container">
-    <section class="container-fluid">
         <?php include('fragments/site_header.php'); ?>
 
+    <p id="startDate" style="display: none;"><?php echo $countDownValues["startDate"]; ?></p>
+    <p id="startTime" style="display: none;"><?php echo $countDownValues["startTime"]; ?></p>
+
+    <section>
         <main>
             <section id="countdown-section">
-                <h2 class="darkblue-text center-text" id="countdown-intro">Countdown to HNGi7.0 </h2>
-
-                <section id="countdown-container">
-                    <div id="day-div">
-                        <div class="countdown-symbol" id="day-symbol">
-                            <div class="arcs-background"></div>
-                            <div id="day-start" class="arc arc_start"></div>
-                            <div id="day-end" class="arc arc_end"></div>
-                            <span id="day-text" class="moshe">05</span>
-                        </div>
-                        <p class="center-text">DAYS</p>
-                    </div>
-                    <div id="hour-div">
-                        <div class="countdown-symbol" id="hour-symbol">
-                            <div class="arcs-background"></div>
-                            <div id="hour-start" class="arc arc_start"></div>
-                            <div id="hour-end" class="arc arc_end"></div>
-                            <span id="hour-text">24</span>
-                        </div>
-                        <p class="center-text">HOURS</p>
-                    </div>
-                    <div id="minute-div">
-                        <div class="countdown-symbol" id="minute-symbol">
-                            <div class="arcs-background"></div>
-                            <div id="minute-start" class="arc arc_start"></div>
-                            <div id="minute-end" class="arc arc_end"></div>
-                            <span id="minute-text" class="moshe">52</span>
-                        </div>
-                        <p class="center-text">MINUTES</p>
-                    </div>
-                    <div id="second-div">
-                        <div class="countdown-symbol" id="second-symbol">
-                            <div class="arcs-background"></div>
-                            <div id="second-start" class="arc arc_start"></div>
-                            <div id="second-end" class="arc arc_end"></div>
-                            <span id="second-text">41</span>
-                        </div>
-                        <p class="center-text">SECONDS</p>
-                    </div>
-                </section>
+                <h2 class="darkblue-text center-text" id="countdown-intro">Countdown to HNGi7.0</h2>
+                <div class="countdown1">
+                <p class="message"></p>
+                <br>
+                <div class="item">
+                    <svg class="d-svg" width="160" height="160">
+                    <circle class="d-outer" r="70" cy="81" cx="81" stroke-width="5" stroke="#d5d5d5" fill="none" />
+                    <circle class="days" r="70" cy="81" cx="81" stroke-width="5" stroke="#06F4CC" fill="none" />
+                    <text class="d-inner" x="50%" y="50%" stroke="#000000" stroke-width="2px" text-anchor="middle"
+                        transform="rotate(90,75,75)"></text>
+                    <text class="desc" x="50%" y="63%" stroke="#000000" stroke-width="0.5px" text-anchor="middle"
+                        transform="rotate(90,75,75)">DAYS</text>
+                    </svg>
+                    <svg class="h-svg" width="160" height="160">
+                    <circle class="h-outer" r="70" cy="81" cx="81" stroke-width="5" stroke="#d5d5d5" fill="none" />
+                    <circle class="hours" r="70" cy="81" cx="81" stroke-width="5" stroke="#06F4CC" fill="none" />
+                    <text class="h-inner" x="50%" y="50%" stroke="#000000" stroke-width="2px" text-anchor="middle"
+                        transform="rotate(90,75,75)"></text>
+                    <text class="desc" x="50%" y="63%" stroke="#000000" stroke-width="0.5px" text-anchor="middle"
+                        transform="rotate(90,75,75)">HOURS</text>
+                    </svg>
+                    <svg class="m-svg" width="160" height="160">
+                    <circle class="m-outer" r="70" cy="81" cx="81" stroke-width="5" stroke="#d5d5d5" fill="none" />
+                    <circle class="mins" r="70" cy="81" cx="81" stroke-width="5" stroke="#06F4CC" fill="none" />
+                    <text class="m-inner" x="50%" y="50%" stroke="#000000" stroke-width="2px" text-anchor="middle"
+                        transform="rotate(90,75,75)"></text>
+                    <text class="desc" x="50%" y="63%" stroke="#000000" stroke-width="0.5px" text-anchor="middle"
+                        transform="rotate(90,75,75)">MINUTES</text>
+                    </svg>
+                    <svg class="s-svg" width="160" height="160">
+                    <circle class="s-outer" r="70" cy="81" cx="81" stroke-width="5" stroke="#d5d5d5" fill="none" />
+                    <circle class="seconds" r="70" cy="81" cx="81" stroke-width="5" stroke="#06F4CC" fill="none" />
+                    <text class="s-inner" x="50%" y="50%" stroke="#000000" stroke-width="2px" text-anchor="middle"
+                        transform="rotate(90,75,75)"></text>
+                    <text class="desc" x="50%" y="63%" stroke="#000000" stroke-width="0.5px" text-anchor="middle"
+                        transform="rotate(90,75,75)">SECONDS</text>
+                    </svg>
+                </div>
+                </div>
 
                 <h2 class="center-text"><a href="join-intern.php" class="skyblue-text" id="countdown-register">REGISTER
                         FOR HNGi7.0 NOW</a></h2>
             </section>
 
             <section id="home-about">
-                <div id="about-container">
-                    <article>
-                        <h1 class="blue-text">HNG 6.0 Internship</h1>
+                <div class="container">
+                    <div id="about-container">
+                        <article class="my-auto"  data-aos="fade-right" >
+                            <h1 class="blue-text hng6">HNG 6.0 Internship</h1>
 
-                        <p>
-                            The HNG 6.0 Internship commenced 23rd April, 2019 and ended 58th October, 2020. <br />
-                            <br /> A well-planned, coordinated event where young talented folks from across the globe
-                            participated remotely and were involved in learning
-                            key skills needed to becoming the best globally in programming, design thinking, machine
-                            learning and digital marketing. <br /> <br /> The HNG 6.0 Internship programme comprised of
-                            10 stages. Tasks were given to participants and
-                            deadlines for submission was set. Those who were late in submitting tasks and also those who
-                            didn’t follow instructions to complete task as required were eliminated at every stage of
-                            the event. <br /> <br /> The programme was directed
-                            by Mark Essien, (founder-CEO hotels.ng) and some of the participants from the previous HNG
-                            Internship edition were brought on board as
-                            <a href="mentorpage.php" class="skyblue-text">Mentors</a>, their job was to guide and
-                            inspire participatants when needed and also to properly coordinate the event.
-                        </p>
-                    </article>
-                    <article>
-                        <img src="https://res.cloudinary.com/jaycodist/image/upload/v1570722500/home-forum_wmrsfj.png">
-                    </article>
+                            <p class="my-auto">
+                                The HNG 6.0 Internship commenced 23rd April, 2019 and ended 58th October, 2020. <br />
+                                <br /> A well-planned, coordinated event where young talented folks from across the globe
+                                participated remotely and were involved in learning
+                                key skills needed to becoming the best globally in programming, design thinking, machine
+                                learning and digital marketing. <br /> <br /> The HNG 6.0 Internship programme comprised of
+                                10 stages. Tasks were given to participants and
+                                deadlines for submission was set. Those who were late in submitting tasks and also those who
+                                didn’t follow instructions to complete task as required were eliminated at every stage of
+                                the event. <br /> <br /> The programme was directed
+                                by Mark Essien, (founder-CEO hotels.ng) and some of the participants from the previous HNG
+                                Internship edition were brought on board as
+                                <a href="mentorpage.php" class="skyblue-text">Mentors</a>, their job was to guide and
+                                inspire participatants when needed and also to properly coordinate the event.
+                            </p>
+                        </article>
+                        <article>
+                            <img src="https://res.cloudinary.com/jaycodist/image/upload/v1570722500/home-forum_wmrsfj.png">
+                        </article>
+                    </div>
                 </div>
+                
             </section>
 
             <section class="gallery">
-                <h2 class="blue-text">How it All Happened</h2>
-                <section>
-                    <div class="gallery_items">
+                <h2 class="blue-text"  data-aos="fade-up">How it All Happened</h2>
+                <section class="container">
+                    <div class="gallery_items"  data-aos="fade-up">
                         <img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722558/gallery-first_gldujn.png">
                         <img
@@ -119,7 +124,7 @@
                         <img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722618/gallery-third_oqgaiv.png">
                     </div>
-                    <div class="gallery_items" id="hidden_images">
+                    <div class="gallery_items" id="hidden_images"  data-aos="fade-up">
                         <img
                             src="https://res.cloudinary.com/yutee/image/upload/v1571818578/low-quality/startng1_rbfvik.jpg">
                         <img
@@ -140,12 +145,12 @@
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722589/gallery-second_nkrosi.png">
                     </div>
                 </section> <br>
-                <div>
+                <div  data-aos="fade-up">
                     <button class="def-button shadowed" onclick="showImage()">View more photos</button></div>
             </section>
 
-            <section id="participate-section">
-                <div>
+            <section id="participate-section" class="container">
+                <div  data-aos="fade-right">
                     <h2 class="blue-text">Participation</h2>
                     <p>
                         More than 5000 intellectuals participated in the HNG 6.0 internship programme. <br /><br /> We
@@ -161,7 +166,7 @@
                 </div>
             </section>
 
-            <section class="section3">
+            <section class="section3 container"  data-aos="fade-up">
                 <h2 class="blue-text center-text">HNG 6 Internship Tracks (Curriculum)</h2>
                 <div id="curriculum-flex">
                     <div>
@@ -186,8 +191,9 @@
                 </div>
             </section>
 
-            <section id="mentor-section">
-                <div>
+            <section id="main-mentor-section">
+                <div id="mentor-section">
+                <div class="mentor-text"  data-aos="fade-right">
                     <h2 class="blue-text">HNG 6.0 Internship Mentors</h2>
                     <p>
                         Mentors are responsible for day-to-day running of the HNG Internship programme.
@@ -213,9 +219,11 @@
                     </div>
                     <a href="mentorpage.php" class="def-button shadowed">See all Mentors</a>
                 </div>
+                </div>
+                
             </section>
 
-            <section id="slack-channels">
+            <section id="slack-channels"  data-aos="fade-up">
                 <h2 class="center-text blue-text" id="slack-title"><span>HNG 6 Internship Popular Channels - SLACK
                     </span><img id="slack-logo"
                         src="https://res.cloudinary.com/jaycodist/image/upload/v1570722732/slack-icon_hwxoui.svg"></h2>
@@ -231,8 +239,8 @@
                 </div>
             </section>
             <section class="section4">
-                <h2 class="center-text blue-text">HNG 6.0 Internship Sponsors</h2>
-                <div id="sponsor-flex-top">
+                <h2 class="center-text blue-text"  data-aos="fade-up">HNG 6.0 Internship Sponsors</h2>
+                <div id="sponsor-flex-top"  data-aos="fade-up">
                     <a href="#"><img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722782/hotels-logo_x3icbw.svg"></a>
                     <a href="#"><img
@@ -242,7 +250,7 @@
                     <a href="#"><img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722788/verifi-logo_nfckrw.svg"></a>
                 </div>
-                <div id="sponsor-flex-bottom">
+                <div id="sponsor-flex-bottom"  data-aos="fade-up">
                     <a href="#"><img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570723653/figma-logo_iexfvh.png"></a>
                     <a href="#"><img
@@ -250,62 +258,29 @@
                     <a href="#"><img
                             src="https://res.cloudinary.com/jaycodist/image/upload/v1570722784/flutterwave-logo_nyv9ue.svg"></a>
                 </div>
-                <p class="center-text"><a href="donate.html" class="def-button shadowed center">Become a Sponsor</a></p>
+                <p class="center-text"  data-aos="fade-up"><a href="donate.php" class="def-button shadowed center">Become a Sponsor</a></p>
             </section>
         </main>
-        <!--<footer>
-            <img src="https://res.cloudinary.com/jaycodist/image/upload/v1570722444/hng-brand-logo_gnplmq.svg">
-            <nav>
-                <section>
-                    <h2 class="skyblue-text">Quick Links</h2>
-                    <div id="link-list">
-                        <a href="join-intern.php" class="skyblue-text">Join HNGi7.0</a>
-                        <a href="index.php" class="skyblue-text">About HNG</a>
-                        <a href="donate.html" class="skyblue-text">Become a Sponsor</a>
-                        <a href="MentorSetUpPage2.php" class="skyblue-text">Sign up as Mentor</a>
-                        <a href="faq.php" class="skyblue-text">FAQ</a>
-                        <a href="intern-experience.php" class="skyblue-text">Past Intern Experience</a>
-
-                    </div>
-                </section>
-                <section id="contact-section">
-                    <h2 class="skyblue-text">Contact Us</h2>
-                    <div>
-                        <a href="tel:+2348123456789">
-                            <strong>
-              Phone: <br />
-            </strong> +234 812 345 6789
-                        </a>
-                        <br />
-                        <a href="mailto:interns@hng.tech">
-                            <strong>
-              Email: <br />
-            </strong> interns@hng.tech
-                        </a>
-                    </div>
-                </section>
-                <section>
-                    <h2 class="skyblue-text">Office Address</h2>
-                    <p id="address">
-                        3 Birrel Avenue <br /> Sabo, Yaba, <br /> Lagos state
-                    </p>
-                </section>
-                <section>
-                    <h2 class="skyblue-text">Follow Us</h2>
-                    <div id="socials">
-                        <a href="https://twitter.com/hnginternship" title="Follow on Twitter!"><img src="https://res.cloudinary.com/jaycodist/image/upload/v1570722900/twitter-logo_m1mgzi.svg"></a>
-                        <a href="https://www.facebook.com/HNG-Internship-115577009820117/"><img title="Follow on Facebook!" src="https://res.cloudinary.com/jaycodist/image/upload/v1570722900/facebook-logo_bw1hal.svg"></a>
-                        <a href="https://dribble.com"><img title="Follow on Dribble!" src="https://res.cloudinary.com/jaycodist/image/upload/v1570722900/dribble-logo_w4vwuz.svg"></a>
-                    </div>
-                </section>
-            </nav>
-            <p class="center-text darkblue-text">&copy 2019, HNG Internship. All rights reserved.</p>
-            <div id="jumptotop"><em></em></div>
-                <script src="./js/scroll-to-top.js"></script> 
-        </footer>-->
-        <?php include('fragments/site_footer.php'); ?>
+       
     </section>
-    <script type="text/javascript" src="js/hng6.js"></script>
+    <?php include('fragments/site_footer.php'); ?>
+
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="js/countdown.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" crossorigin="anonymous"></script>
+</body>
+<script type="text/javascript" src="js/hng6.js"></script>
     <script>
         function showImage() {
             var images = document.getElementById("hidden_images");
@@ -314,8 +289,6 @@
             } else {
                 images.style.display = "grid";
             }
-        }</script>
-    </div>
-</body>
-
+        }
+    </script>
 </html>
