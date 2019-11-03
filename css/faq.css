@@ -22,6 +22,7 @@
     box-shadow: 0 0 1px rgba(51, 8, 8, 0.1);
     width: 100%;
     margin: 80px 0;
+    padding:1rem;
 }
 
 .myaccordion .card,
@@ -47,7 +48,7 @@
     font-weight: bold;
     color: #00AEFF;
     padding: 0;
-    font-size: 23px;
+    font-size: 15px;
     font-family: Open Sans;
     text-align: left;
     margin-bottom: 20px;
@@ -65,4 +66,26 @@
 .myaccordion li+li {
     margin-top: 20px;
  
+}
+.freq-n h3{
+text-transform: capitalize;
+}
+
+#btn-here{
+  background-color: #00AEFF;
+  border: 0;
+}
+#btn-here:hover{
+    opacity: .5;
+    color: white;
+
+.freq-n h3 a {
+  color: white;
+  background-color: #00AEFF;
+}
+
+.freq-n h3 a:hover {
+  color: white;
+  opacity: .7;
+
 }
