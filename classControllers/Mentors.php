@@ -44,7 +44,7 @@ class Mentor
                         <td>' . $row["current_state"] . '</td>
                         <td>' . $row["employment_status"] . '</td>
                         <td>' . $row["timestamp"] . '</td>
-                        <td>' .'<a href="registered_mentors.php?rejectMentorId=' . $row["mentor_id"] . '" class="btn btn-danger btn-sm" style="margin-right: 5px;">Deactivate</a>' . '</td>
+                        <td>' .'<a href="edit_mentor.php?id=' . $row["mentor_id"] . '" class="btn btn-info btn-sm" style="margin-right:5px;">Edit</a> <a href="registered_mentors.php?rejectMentorId=' . $row["mentor_id"] . '" class="btn btn-danger btn-sm" style="margin-right: 5px;">Deactivate</a>' . '</td>
                         
 
                     </tr>';
@@ -177,7 +177,7 @@ class Mentor
     $fullname = $row['name'];
     $email = $row['email'];
     if($count > 0) {
-      $body = "Your registration as a mentor on the HNG 7.0 internship has been accepted. Thank you";
+      $body = "Congratulations! Your application to be a mentor in the HNG Internship 7.0 has been accepted. Thank you";
       acceptMentorMail($body,$fullname,$email);
       // updated
       return true;
@@ -198,7 +198,7 @@ class Mentor
         $fullname = $row['name'];
         $email = $row['email'];
     if($count > 0) {
-      $body = "Your registration as a mentor on the HNG 7.0 internship has been disapproved . Thank you";
+      $body = "We appreciate your signing up to be a mentor in the HNG Internsip 7.0 but we would not be accepting you as a mentor. Thank You";
       rejectMentorMail($email, $fullname, $body);
       // updated
       return true;
@@ -219,6 +219,28 @@ class Mentor
   }
 
 
+    public function getMentorInfo($id) {
+        global $database;
+        $query = "SELECT * FROM mentors WHERE mentor_id = ".$id."";
+        $res = $database->query($query);
+        $row = mysqli_fetch_assoc($res);
+        return $row;
+    }
+    //function to update mentors : Written by @Hollyphat. Date: 8/11/2019 1:40PM
+    public function updateMentors($id, $data){
+        global $database;
+
+        $set = "";
+
+        foreach ($data as $item => $value){
+            $set .= "`$item` = '$value', ";
+        }
+
+        $set = trim($set);
+        $set = substr($set, 0, strlen($set) - 1);
+        $sql = "UPDATE mentors SET $set WHERE mentor_id = '$id' ";
+        $database->query("$sql");
+    }
 
 }
 

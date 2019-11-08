@@ -1,3 +1,78 @@
+<?php
+    require_once "classControllers/init.php";
+
+    $donation = new Donation();
+
+    if(isset($_POST['pay'])){
+        $name = $database->escape_string($_POST['name']);
+        $phone = $database->escape_string($_POST['phone']);
+        $email = $database->escape_string($_POST['email']);
+        $amount = $database->escape_string($_POST['amount']);
+
+        $ref = $donation->pay("$amount","$name","$phone","$email");
+
+        $url = "http://hngi7.hng.tech/donate.php";
+
+
+        $curl = curl_init();
+
+        $customer_email = $email;
+//$amount = $amount;
+//$currency = "USD";
+        $txref = $ref; // ensure you generate unique references per transaction.
+        $PBFPubKey = "FLWPUBK_TEST-2c7dd09d63d44deae5cbf3e9728aa289-X"; // get your public key from the dashboard.
+        $redirect_url = $url;
+//$payment_plan = "pass the plan id"; // this is only required for recurring payments.
+
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/hosted/pay',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode(
+                array(
+                    'amount'=>$amount,
+                    'customer_email'=>$customer_email,
+                    'currency'=> "NGN",
+                    'txref'=>$txref,
+                    'PBFPubKey'=>$PBFPubKey,
+                    'redirect_url'=>$redirect_url
+                    //'payment_plan'=>$payment_plan
+                )
+            ),
+            CURLOPT_HTTPHEADER =>
+                array(
+                    "content-type: application/json",
+                    "cache-control: no-cache"
+                ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        if($err){
+            // there was an error contacting the rave API
+            die('Curl returned error: ' . $err);
+        }
+
+        $transaction = json_decode($response);
+
+        if(!$transaction->data && !$transaction->data->link){
+            // there was an error from the API
+            print_r('API returned error: ' . $transaction->message);
+        }
+
+// uncomment out this line if you want to redirect the user to the payment page
+//print_r($transaction->data->message);
+
+
+// redirect to page so User can pay
+// uncomment this line to allow the user redirect to the payment page
+        header('Location: ' . $transaction->data->link);
+
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,7 +119,7 @@
         finding and nurturing talent.
       </p>
       <a href="#form" class="button-primary">Donate</a>
-      <a href="newsponsor.php" class="button-primary">Register as Sponsor(Brand)</a>
+      <a href="newsponsor" class="button-primary">Register as Sponsor(Brand)</a>
 
     </div>
 
@@ -97,25 +172,38 @@
 
     <section class="banner form" id="form">
       <h3 class="title">Donate Today</h3>
-      <form action="" id="actualForm">
+       <form action="" id="actualForms" method="post">
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email address"
+          required
+        />
+        <input
+                required
+          type="text"
+          name="phone"
+          placeholder="Enter Phone number"
+        />
         <input
           type="number"
           name="amount"
           placeholder="Donation amount"
           required
         />
-        <label for="group">To which group?</label>
-        <select name="group">
-          <option value="all">All</option>
-          <option value="women">Women</option>
-          <option value="disabled">Disabled</option>
-        </select>
-        <input type="submit" /> <br>
+        
+        <input type="submit" name="pay" value="Donate Now" /> <br>
         <form>
-          <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
-          <button onClick="payWithRave()" class="transparent-btn" style="background-color: transparent; color:#007bff; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;">Donate via Flutter</button>
+          <!--<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+          <button onClick="payWithRave()" class="transparent-btn" style="background-color: transparent; color:#007bff; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;">Donate via Flutter</button>-->
         </form>
-        <a href="newsponsor.php">Register as Sponsor(Brand)</a>
+        <a href="newsponsor">Register as Sponsor(Brand)</a>
        
       </form>
     </section>
@@ -125,21 +213,32 @@
       <p class="desc">
         Give anything you have that can make an intern's journey easier
       </p>
-      <form action="" id="actualSupportForm">
+      <form action="" id="actualSupportForms" method="post">
         <input
           type="text"
-          name="tool"
-          placeholder="What do you want to donate"
+          name="amount"
+          placeholder="How much do you want to donate"
           required
         />
-        <input type="email" name="email" placeholder="Email address" required />
-        <label for="group">To which group?</label>
-        <select name="group">
-          <option value="all">All</option>
-          <option value="women">Women</option>
-          <option value="disabled">Disabled</option>
-        </select>
-        <input type="submit" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email address"
+          required
+        />
+        <input
+          type="number"
+          name="phone"
+          placeholder="Enter Phone number"
+        />
+          
+        <input type="submit" name="pay" value="Donate Now" />
       </form>
       
     </div>
@@ -150,13 +249,13 @@
       form.addEventListener('submit', e => {
         e.preventDefault();
 
-        alert("Thanks, but donations aren't working yet");
+        //alert("Thanks, but donations aren't working yet");
       });
       let SupportForm = document.querySelector('#actualSupportForm');
       SupportForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        alert("Thanks, but donations aren't working yet");
+        //alert("Thanks, but donations aren't working yet");
       });
     </script>
 
