@@ -14,13 +14,15 @@ class Mentors
 	public $employment_status;
 	public $status = 0;
 	public $timestamp;
+	public $twitter_url;
+	public $fb_url;
 
 
 	public function Apply_mentor()
 	{
 		global $database;
 		$res = $database->query("INSERT INTO mentors()
-			VALUES(NULL, '$this->area_of_expertise', '$this->photo_url', '$this->name', '$this->email', '$this->phone_no', '$this->link_to_portfolio', '$this->link_to_linkedin', '$this->link_to_cv', '$this->why_interested', '$this->current_state', '$this->employment_status', '$this->status' ,'$this->timestamp')");
+			VALUES(NULL, '$this->area_of_expertise', '$this->photo_url', '$this->name', '$this->email', '$this->phone_no', '$this->link_to_portfolio', '$this->link_to_linkedin', '$this->link_to_cv', '$this->why_interested', '$this->current_state', '$this->employment_status', '$this->status' ,'$this->timestamp','$this->fb_url','$this->twitter_url')");
 		return $res;
 	}
 	public static function emailExists($email)

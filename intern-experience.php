@@ -28,10 +28,19 @@
 
         // $internExperience->uploadImage($fileDestination);
         $names = $database->escape_string($_POST["names"]);
-        $stack = $database->escape_string($_POST["stack"]);
+        $stacks = $_POST["stack"];
         $experience = $database->escape_string($_POST['experience']);
 
       }
+
+
+      $the_stack = "";
+      foreach ($stacks as $stack) {
+        $the_stack .= " ,$stack";
+      }
+
+      $stack = trim($the_stack);
+      $stack = substr($stack, 1, strlen($stack));
 
           $fileDe = 'uploads/interns/'.$fileNewName;
           move_uploaded_file($fileTmpName, $fileDe);
@@ -89,7 +98,7 @@
     <section class="jumbo">
             <h2 class="heading">Past Interns Experience</h2>
             <p class="para">Testimonies From Ex-HNG Internship Finalists<br>
-            <a href="" onclick="modalForm()" class="experiencetext">Submit Experience</a>
+            <a href="#" onclick="modalForm()" class="experiencetext">Submit Experience</a>
             </p>
    </section>
 
@@ -109,7 +118,7 @@
                         <div class="form-group">
                             <label for="stack">Your Stack</label>
                             
-                            <select class="interest form-control" name="stack" id="stack" required multiple>
+                            <select multiple class="interest form-control" name="stack[]" id="stack" required multiple>
                               <option value="" disabled selected hidden>Your Stack</option>
                               <option value="Backend">Backend</option>
                               <option value="DevOps">DevOps</option>
@@ -127,9 +136,9 @@
 
 
                           <div class="form-group">
-                              <label for="image">Your Picture (Optional) </label>
+                              <label for="image">Your Picture </label>
                               <br>
-                              <input type="file" name="image" >
+                              <input type="file" name="image" required />
                           </div>
 
 
@@ -137,6 +146,8 @@
                             <input type="submit" name="ok" class="btn btn-success modal-button" value="Submit Experience">
                         </div>
                     </form>
+
+                  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeForm()">Close</button>
@@ -186,7 +197,6 @@
     </main>
     </section>
     <?php include('fragments/site_footer.php'); ?>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 </body>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

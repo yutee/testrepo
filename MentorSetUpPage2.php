@@ -35,6 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  if (!filter_var($_POST['cv_link'], FILTER_VALIDATE_URL)) {
   $error['cv_link'] = "Invalid Url";
  }
+
+ if (!filter_var($_POST['fb_url'], FILTER_VALIDATE_URL)) {
+  $error['fb_url'] = "Invalid Url";
+ }
+ if (!filter_var($_POST['twitter_url'], FILTER_VALIDATE_URL)) {
+  $error['twitter_url'] = "Invalid Url";
+ }
  if (!filter_var($_POST['portfolio_link'], FILTER_VALIDATE_URL)) {
   $error['portfolio_link'] = "Invalid Url";
  }
@@ -94,6 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $mentor->current_state = $database->escape_string($_POST['state']);
       $mentor->employment_status = $database->escape_string($_POST['employment_status']);
       $mentor->timestamp = strftime("%Y-%m-%d %H:%M:%S", time());
+      $mentor->fb_url = $database->escape_string($_POST['fb_url']);
+      $mentor->twitter_url = $database->escape_string($_POST['twitter_url']);
 
       if ($mentor->Apply_mentor()) {
        mailMentor($mentor->email, $mentor->name);
@@ -261,7 +270,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                                                                                      echo $_POST['job'];
                                                                                                                                     } ?>"></div>
       <div class="col-sm-12">
-       <input name="portfolio_link" type="url" class="form-control mt-2" id="validationCustom05" placeholder="Link to you portfolio" required value="<?php if (isset($_POST['portfolio_link'])) {
+       <input name="portfolio_link" type="url" class="form-control mt-2" id="validationCustom05" placeholder="Link to your portfolio" required value="<?php if (isset($_POST['portfolio_link'])) {
                                                                                                                                                       echo $_POST['portfolio_link'];
                                                                                                                                                      } ?>"></div>
       <div class="col-sm-12">
@@ -269,21 +278,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                                                                                                              echo $_POST['linkedin_link'];
                                                                                                                                                             } ?>"></div>
       <div class="col-sm-12">
-       <input name="cv_link" type="url" class="form-control mt-2" id="validationCustom07" placeholder="Link to your cv" required value="<?php if (isset($_POST['cv_link'])) {
+       <input name="cv_link" type="url" class="form-control mt-2" id="validationCustom07" placeholder="Link to your CV" required value="<?php if (isset($_POST['cv_link'])) {
                                                                                                                                          echo $_POST['cv_link'];
                                                                                                                                         } ?>"></div>
+                                                                                                                                        <!-- new inserted inputs-->
+                                                                                                                                        <div class="col-sm-12">
+       <input name="fb_url" type="url" class="form-control mt-2" id="validationCustom07" placeholder="Link to your Facebook account" required value="<?php if (isset($_POST['fb_url'])) {
+                                                                                                                                         echo $_POST['fb_url'];
+                                                                                                                                        } ?>"></div>
+                                                                                                                                        <div class="col-sm-12">
+       <input name="twitter_url" type="url" class="form-control mt-2" id="validationCustom07" placeholder="Link to your Twitter account" required value="<?php if (isset($_POST['twitter_url'])) {
+                                                                                                                                         echo $_POST['twitter_url'];
+                                                                                                                                        } ?>"></div>
+                                                                                                                                        <!-- new inserted inputs-->
+
       <div class="col-sm-12">
        <input name="interest" type="text" class="form-control mt-2" id="validationCustom08" placeholder="Why are you interested in mentoring with HNG?" required value="<?php if (isset($_POST['interest'])) {
                                                                                                                                                                          echo $_POST['interest'];
                                                                                                                                                                         } ?>" maxlength="50"></div>
       <div class="col-sm-12">
-       <input name="state" type="text" class="form-control mt-2" id="validationCustom09" placeholder="What state are you currently in?" required value="<?php if (isset($_POST['state'])) {
-                                                                                                                                                         echo $_POST['state'];
-                                                                                                                                                        } ?>" maxlength="15"></div>
+       <select class="form-control mt-2" name="state" id="validationCustom09" placeholder="What state are you currently in?" required>
+        <?php
+
+         if (isset($_POST['state'])) {     
+            echo "<option>".$_POST['state']."</option>";
+          }
+
+        ?>
+       <option value="state">What state are you currently in? </option>
+     <option value="FCT">Federal Capital Territory</option>
+      <option value="Abia">Abia</option>
+      <option value="Adamawa">Adamawa</option> 
+      <option value="Akwa Ibom">Akwa Ibom</option>
+      <option value="Anambra">Anambra</option>
+      <option value="Bauchi">Bauchi</option>
+      <option value="Bayelsa">Bayelsa</option>
+      <option value="Benue">Benue</option>
+      <option value="Borno">Borno</option>
+      <option value="Cross River">Cross River</option>
+      <option value="Delta">Delta</option>
+      <option value="Ebonyi">Ebonyi</option>
+      <option value="Edo">Edo</option>
+      <option value="Ekiti">Ekiti</option>
+      <option value="Enugu">Enugu</option>
+      <option value="Gombe">Gombe</option>
+      <option value="Imo">Imo</option>
+      <option value="Jigawa">Jigawa</option>
+      <option value="Kaduna">Kaduna</option>
+      <option value="Kano">Kano</option>
+      <option value="Katsina">Katsina</option>
+      <option value="Kebbi">Kebbi</option>
+      <option value="Kogi">Kogi</option>
+      <option value="Kwara">Kwara</option>
+      <option value="Lagos">Lagos</option>
+      <option value="Nasarawa">Nasarawa</option>
+      <option value="Niger">Niger</option>
+      <option value="Ogun">Ogun</option>
+      <option value="Ondo">Ondo</option>
+      <option value="Osun">Osun</option>
+      <option value="Oyo">Oyo</option>
+      <option value="Borno">Borno</option>
+      <option value="Plateau">Plateau</option>
+      <option value="Rivers">Rivers</option>
+      <option value="Sokoto">Sokoto</option>
+      <option value="Taraba">Taraba</option>
+      <option value="Yobe">Yobe</option>
+      <option value="Zamfara">Zamfara</option>
+   </select>
+ </div>
+                                                                                                                                                        
       <div class="col-sm-12">
-       <input name="employment_status" type="text" class="form-control mt-2" id="validationCustom10" placeholder="What is your current employment status?" required value="<?php if (isset($_POST['employment_status'])) {
+       <select name="employment_status" type="text" class="form-control mt-2" id="validationCustom10" placeholder="What is your current employment status?" required value="<?php if (isset($_POST['employment_status'])) {
                                                                                                                                                                             echo $_POST['employment_status'];
-                                                                                                                                                                           } ?>" maxlength="15"></div>
+                                                                                                                                                                           } ?>" maxlength="15">
+                                                                                                                                                                           <option value="Employee">Employed</option>
+                                                                                                                                                                           <option value="Self-employed">Self-employed</option>
+                                                                                                                                                                           <option value="Freelance">Freelance</option>
+                                                                                                                                                                           <option value="Unemployed">Unemployed</option>                                                                                 </select></div>
       <center><button class="btn btn-primary mt-3" type="submit">Submit</button></center>
 
      </div>
@@ -293,7 +364,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  </form>
  
  <?php include('fragments/site_footer.php'); ?>
-
+<?php include('fragments/chat.php'); ?>
 </body>
 <script src="https://kit.fontawesome.com/85682eb992.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
